@@ -2,7 +2,7 @@ import {
   FunctionComponent,
 } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { IoCart, IoCartOutline, IoChevronBack } from 'react-icons/io5';
 import {
   clearBasket,
@@ -19,13 +19,13 @@ import {
 } from '../store/features/Products/productsSlice';
 import { loadProducts } from '../store/sagas/sagaActions';
 
-const Wrapper = styled.div`
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-`;
+// const Wrapper = styled.div`
+//   margin: 0 auto;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 10px;
+// `;
 
 export const Controls: FunctionComponent = () => {
   const dispatch = useAppDispatch();
@@ -34,40 +34,108 @@ export const Controls: FunctionComponent = () => {
   const count = useAppSelector(selectTotalCount);
 
   return (
-    <Wrapper>
-      <Link to="/">
-        <IoChevronBack />
-      </Link>
+    <>
+      <div className="navbar navbar-expand-lg navbar-light bg-light">
+        <Link to="/register">
+          Register
+        </Link>
 
-      {!products.length && (
-        <Button
-          onClick={() => dispatch(loadProducts())}
-        >
-          Load products
-        </Button>
-      )}
+        <Link to="/login">
+          Login
+        </Link>
 
-      {!!basket.length && (
-        <>
-          <Button
-            onClick={() => dispatch(clearBasket())}
-          >
-            Clear basket
+        <Link to="/">
+          <IoChevronBack />
+        </Link>
+
+        {!products.length && (
+          <Button onClick={() => dispatch(loadProducts())}>
+            Load products
           </Button>
+        )}
 
-          Total:
-          {count}
-        </>
-      )}
+        {!!basket.length && (
+          <>
+            <Button onClick={() => dispatch(clearBasket())}>
+              Clear basket
+            </Button>
+            Total:
+            {count}
+          </>
+        )}
 
-      <Link
-        to="basket"
-      >
-        {basket.length
-          ? <IoCart size="2rem" color="black" />
-          : <IoCartOutline size="2rem" color="grey" />}
-      </Link>
+        <Link to="basket">
+          {basket.length ? (
+            <IoCart size="2rem" color="black" />
+          ) : (
+            <IoCartOutline size="2rem" color="grey" />
+          )}
+        </Link>
+      </div>
 
-    </Wrapper>
+      {/* <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a className="navbar-brand" href="/">
+          Navbar
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="/navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul className="navbar-nav">
+            <li className="nav-item active">
+              <a className="nav-link" href="/">
+                Home
+                <span className="sr-only">(current)</span>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/">
+                Features
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/">
+                Pricing
+              </a>
+            </li>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="/"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Dropdown link
+              </a>
+              <div
+                className="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <a className="dropdown-item" href="/">
+                  Action
+                </a>
+                <a className="dropdown-item" href="/">
+                  Another action
+                </a>
+                <a className="dropdown-item" href="/">
+                  Something else here
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav> */}
+    </>
   );
 };

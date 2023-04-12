@@ -20,10 +20,6 @@ const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    // loadProducts: () => {
-    // we can create empty actions for saga watchers
-    // but I use external sagasActions file
-    // },
     setProducts: (state: ProductsState, action: PayloadAction<Product[]>) => {
       state.storage = action.payload;
     },
